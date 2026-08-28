@@ -161,14 +161,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 오피스 실습학생 DB(practice_applicants)에 바로 행 생성 — 결제 단계가 없다.
+    // 오피스 실습 전국반(practice_applicants, category=전국반)에 바로 행 생성 — 결제 단계가 없다.
     try {
       const fullAddress = address_detail
         ? `${address} ${address_detail}`
         : address;
       await supabaseAdmin.from("practice_applicants").insert({
         source_application_id: data.id,
-        category,
         name,
         gender,
         contact,
@@ -181,6 +180,8 @@ export async function POST(request: NextRequest) {
         desired_weekday,
         own_car,
         manager,
+        // 전국반 = baroapply 전용 분류 (오피스 '실습 전국반' 페이지에서만 조회)
+        category: "전국반",
         status: "추후진행예정",
       });
     } catch (syncErr) {
