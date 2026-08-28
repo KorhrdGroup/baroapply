@@ -1,0 +1,79 @@
+/**
+ * Layout Styles
+ * 레이아웃 관련 스타일
+ */
+
+/* ============================================
+   Layout Wrapper
+   ============================================ */
+
+.layout_wrapper {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* ============================================
+   Layout Container
+   ============================================ */
+
+.layout_container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+}
+
+/* ============================================
+   Layout Sidebar
+   ============================================ */
+
+.layout_sidebar {
+  width: 280px;
+  max-height: 100vh;
+  background-color: #f9fafb;
+  border-right: 1px solid #e5e7eb;
+  padding: var(--spacing-6);
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   Layout Content
+   ============================================ */
+
+.layout_content {
+  flex: 1;
+  min-height: 100vh;
+  padding: var(--spacing-8) var(--spacing-6);
+}
+
+/* ============================================
+   Layout Header
+   ============================================ */
+
+.layout_header {
+  width: 100%;
+  padding: var(--spacing-4) var(--spacing-6);
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* ============================================
+   Layout Footer
+   ============================================ */
+
+.layout_footer {
+  width: 100%;
+  padding: var(--spacing-8) var(--spacing-6);
+  background-color: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  margin-top: auto;
+}
+

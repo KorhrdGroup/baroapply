@@ -1,0 +1,377 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-08-05T08:26:54.289Z",
+  "activeFeatures": [
+    "korhrdsocialpri",
+    "practice",
+    "feedback",
+    "privacy",
+    "prikorhrd",
+    "practice-applicants",
+    "result"
+  ],
+  "primaryFeature": "korhrdsocialpri",
+  "features": {
+    "korhrdsocialpri": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-24T05:20:35.267Z",
+        "lastUpdated": "2026-03-13T07:01:04.161Z"
+      },
+      "lastFile": "/Users/korhrd/Documents/GitHub/korhrdsocialpri/app/page.tsx"
+    },
+    "practice": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-24T05:20:52.997Z",
+        "lastUpdated": "2026-08-05T08:26:54.289Z"
+      },
+      "lastFile": "/Users/korhrd/Documents/GitHub/prikorhrd/app/api/practice/route.ts"
+    },
+    "feedback": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-24T05:21:12.084Z",
+        "lastUpdated": "2026-02-24T05:26:44.311Z"
+      },
+      "lastFile": "/Users/korhrd/Documents/GitHub/korhrdsocialpri/app/api/payapp/feedback/route.ts"
+    },
+    "privacy": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-24T05:42:53.887Z",
+        "lastUpdated": "2026-02-24T05:42:53.887Z"
+      },
+      "lastFile": "/Users/korhrd/Documents/GitHub/korhrdsocialpri/app/privacy/privacyData.ts"
+    },
+    "prikorhrd": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-06-29T03:29:55.068Z",
+        "lastUpdated": "2026-07-01T03:40:47.682Z"
+      },
+      "lastFile": "/Users/korhrd/Documents/GitHub/prikorhrd/app/page.tsx"
+    },
+    "practice-applicants": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-06-29T03:50:17.978Z",
+        "lastUpdated": "2026-06-29T03:54:39.995Z"
+      },
+      "lastFile": "/Users/korhrd/Documents/GitHub/KorhrdGroupDB/src/app/(dashboard)/practice-applicants/ApplicantsView.tsx"
+    },
+    "result": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-07-01T03:23:08.920Z",
+        "lastUpdated": "2026-07-01T03:23:08.920Z"
+      },
+      "lastFile": "/Users/korhrd/Documents/GitHub/prikorhrd/app/api/payapp/result/route.ts"
+    }
+  },
+  "pipeline": {
+    "currentPhase": 1,
+    "level": "Dynamic",
+    "phaseHistory": []
+  },
+  "session": {
+    "startedAt": "2026-02-23T03:13:08.412Z",
+    "onboardingCompleted": false,
+    "lastActivity": "2026-08-05T08:26:54.289Z"
+  },
+  "history": [
+    {
+      "timestamp": "2026-02-24T05:20:35.267Z",
+      "feature": "korhrdsocialpri",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-24T05:20:52.997Z",
+      "feature": "practice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-24T05:21:12.085Z",
+      "feature": "feedback",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-24T05:26:13.131Z",
+      "feature": "feedback",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-24T05:26:44.311Z",
+      "feature": "feedback",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-24T05:42:17.642Z",
+      "feature": "korhrdsocialpri",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-24T05:42:53.887Z",
+      "feature": "privacy",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-13T07:01:04.161Z",
+      "feature": "korhrdsocialpri",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:29:55.068Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:30:04.153Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:30:10.731Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:30:47.065Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:30:53.993Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:31:03.109Z",
+      "feature": "practice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:31:09.081Z",
+      "feature": "practice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:31:15.069Z",
+      "feature": "practice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:35:22.282Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:35:32.274Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:35:41.249Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:35:51.403Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:50:17.978Z",
+      "feature": "practice-applicants",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:50:24.909Z",
+      "feature": "practice-applicants",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:52:44.869Z",
+      "feature": "practice-applicants",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:52:51.884Z",
+      "feature": "practice-applicants",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:52:56.698Z",
+      "feature": "practice-applicants",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T03:54:39.995Z",
+      "feature": "practice-applicants",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T08:18:18.815Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-29T08:21:20.137Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T02:59:08.773Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T02:59:13.527Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T02:59:21.026Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T02:59:27.409Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T02:59:42.415Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T02:59:58.519Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T03:00:06.565Z",
+      "feature": "practice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T03:00:09.967Z",
+      "feature": "practice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T03:00:15.109Z",
+      "feature": "practice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T03:01:55.861Z",
+      "feature": "practice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T03:01:59.597Z",
+      "feature": "practice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T03:03:04.490Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T03:23:08.920Z",
+      "feature": "result",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T03:40:47.682Z",
+      "feature": "prikorhrd",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-08-05T08:26:54.289Z",
+      "feature": "practice",
+      "phase": "do",
+      "action": "updated"
+    }
+  ]
+}

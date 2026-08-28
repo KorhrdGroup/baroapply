@@ -1,0 +1,191 @@
+.privacyContainer {
+  min-height: 100vh;
+  background-color: #fff;
+  padding: 2rem 1rem;
+}
+
+.privacyHeader {
+  max-width: 640px;
+  margin: 0 auto 2rem;
+}
+
+.backLink {
+  display: inline-block;
+  color: #495057;
+  text-decoration: none;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  transition: color 0.2s;
+}
+
+.backLink:hover {
+  color: #000;
+}
+
+.privacyHeader h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #212529;
+  margin: 0;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #212529;
+}
+
+.privacyContent {
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.privacyIntro {
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-left: 4px solid #212529;
+}
+
+.privacyIntro p {
+  color: #495057;
+  margin: 0;
+}
+
+.privacySection {
+  margin-bottom: 2.5rem;
+}
+
+.privacySection h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 1rem;
+}
+
+.privacySection p {
+  color: #495057;
+  margin-bottom: 1rem;
+}
+
+.privacySection ol,
+.privacySection ul {
+  color: #495057;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.privacySection li {
+  margin-bottom: 0.5rem;
+}
+
+.privacySection ul ul {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.privacyTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.privacyTable th,
+.privacyTable td {
+  border: 1px solid #dee2e6;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.privacyTable th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #212529;
+}
+
+.privacyTable td {
+  color: #495057;
+}
+
+.contactInfo {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.contactInfo p {
+  margin-bottom: 0.5rem;
+}
+
+.contactInfo ul {
+  margin-top: 0.5rem;
+}
+
+.effectiveDate {
+  text-align: right;
+  font-weight: 600;
+  color: #6c757d;
+  margin-top: 3rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .privacyContainer {
+    padding: 1.5rem 1rem;
+  }
+  
+  .privacyHeader h1 {
+    font-size: 1.5rem;
+  }
+  
+  .privacySection h2 {
+    font-size: 1.1rem;
+  }
+  
+  .privacySection {
+    margin-bottom: 2rem;
+  }
+  
+  .privacyIntro {
+    padding: 1rem;
+  }
+  
+  .privacyTable {
+    font-size: 0.9rem;
+  }
+  
+  .privacyTable th,
+  .privacyTable td {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .privacyContainer {
+    padding: 1rem 0.75rem;
+  }
+  
+  .privacyHeader h1 {
+    font-size: 1.3rem;
+  }
+  
+  .privacySection h2 {
+    font-size: 1rem;
+  }
+  
+  .privacySection p,
+  .privacySection li {
+    font-size: 0.9rem;
+  }
+  
+  .privacyIntro {
+    padding: 0.75rem;
+  }
+  
+  .privacyTable {
+    font-size: 0.85rem;
+  }
+  
+  .privacyTable th,
+  .privacyTable td {
+    padding: 0.4rem;
+  }
+}
