@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Script from "next/script";
-import { useState, useCallback, Suspense, useEffect } from "react";
+import { useState, useCallback, useRef, Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./stepflow.module.css";
@@ -23,6 +23,8 @@ interface KakaoPostcodeData {
   roadAddress: string;
   jibunAddress: string;
   addressType: string;
+  sido: string;
+  sigungu: string;
 }
 
 const formatClickSource = (
@@ -76,9 +78,6 @@ function ClickSourceHandler({
 const PRACTICE_TYPES = [
   "사회복지사 실습 160시간",
   "사회복지사 실습 120시간",
-  "보육교사 실습 240시간",
-  "평생교육사 실습 160시간",
-  "한국어교원 실습",
 ];
 
 // 현장실습 희망날짜: 년/월 선택 (DB 포맷 "25년 06월"에 맞춤)
@@ -88,14 +87,14 @@ const DESIRED_MONTH_OPTIONS = Array.from(
   (_, i) => `${String(i + 1).padStart(2, "0")}월`,
 );
 
-// 성적보고일: 년/월/일 선택 (DB 포맷 "26년 06월 15일")
-const REPORT_DAY_OPTIONS = Array.from(
-  { length: 31 },
-  (_, i) => `${String(i + 1).padStart(2, "0")}일`,
-);
-
 // 실습 진행일
 const WEEKDAY_OPTIONS = ["평일", "주말", "평일+주말"];
+
+// 사전신청 인원 결정 (서울은 35명 고정, 나머지는 35~39명 랜덤)
+const getRegionApplicants = (region: string) => {
+  if (region === "서울") return 35;
+  return 35 + Math.floor(Math.random() * 5);
+};
 
 function PracticeFormContent({ clickSource }: { clickSource: string }) {
   const [step, setStep] = useState(2);
@@ -124,6 +123,12 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [contactError, setContactError] = useState("");
+  const [regionStatus, setRegionStatus] = useState<"idle" | "loading" | "done">(
+    "idle",
+  );
+  const [regionName, setRegionName] = useState("");
+  const [regionApplicants, setRegionApplicants] = useState(0);
+  const regionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
 
@@ -163,6 +168,17 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
             address: addr,
             zonecode: data.zonecode,
           }));
+
+          // 거주지 기반 실습 현황 분석 연출 (시/도 단위로 표시)
+          const region = data.sido || addr.split(" ")[0];
+          setRegionName(region);
+          setRegionApplicants(getRegionApplicants(region));
+          setRegionStatus("loading");
+          if (regionTimerRef.current) clearTimeout(regionTimerRef.current);
+          regionTimerRef.current = setTimeout(
+            () => setRegionStatus("done"),
+            2000,
+          );
         },
       }).open();
     }
@@ -185,8 +201,6 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
     formData.address.length > 0,
     formData.address_detail.trim().length > 0,
     formData.desired_date.trim().length > 0,
-    formData.desired_semester.trim().length > 0,
-    formData.report_date.trim().length > 0,
     formData.practice_type.length > 0,
     formData.desired_weekday.trim().length > 0,
     formData.own_car.length > 0,
@@ -213,8 +227,8 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
         address_detail: formData.address_detail || null,
         zonecode: formData.zonecode || null,
         desired_date: formData.desired_date,
-        desired_semester: formData.desired_semester,
-        report_date: formData.report_date,
+        desired_semester: "-",
+        report_date: "-",
         practice_type: formData.practice_type,
         desired_weekday: formData.desired_weekday,
         own_car: formData.own_car,
@@ -460,6 +474,28 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
                       }
                     />
                   )}
+                  {regionStatus !== "idle" && (
+                    <motion.div
+                      key={regionStatus}
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={styles.regionAnalysis}
+                    >
+                      {regionStatus === "loading" ? (
+                        <>
+                          <span className={styles.regionSpinner} />
+                          <span>
+                            {regionName} 실습 신청 현황 분석 중...
+                          </span>
+                        </>
+                      ) : (
+                        <span>
+                          📍 {regionName} 사회복지사 실습 {regionApplicants}
+                          /40명 사전신청완료
+                        </span>
+                      )}
+                    </motion.div>
+                  )}
                   <p className={styles.addressNote} style={{ color: "#6b7280" }}>
                     *학교/거주지 근처로 실습처 신청이 진행됩니다
                   </p>
@@ -531,117 +567,6 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
                 </p>
               </motion.div>
 
-              {/* 신청 학기 */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={styles.inputGroup}
-              >
-                <label className={styles.inputLabel}>
-                  신청 학기<span className={styles.required}>*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="예) 26년도 2학기"
-                  className={styles.inputField}
-                  value={formData.desired_semester}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      desired_semester: e.target.value,
-                    })
-                  }
-                />
-              </motion.div>
-
-              {/* 성적보고일 */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={styles.inputGroup}
-              >
-                <label className={styles.inputLabel}>
-                  성적보고일<span className={styles.required}>*</span>
-                </label>
-                <div style={{ display: "flex", gap: 8 }}>
-                  <select
-                    className={styles.selectField}
-                    style={{ flex: 1 }}
-                    value={formData.report_year}
-                    onChange={(e) => {
-                      const report_year = e.target.value;
-                      setFormData({
-                        ...formData,
-                        report_year,
-                        report_date:
-                          report_year &&
-                          formData.report_month &&
-                          formData.report_day
-                            ? `${report_year} ${formData.report_month} ${formData.report_day}`
-                            : "",
-                      });
-                    }}
-                  >
-                    <option value="">년도</option>
-                    {DESIRED_YEAR_OPTIONS.map((y) => (
-                      <option key={y} value={y}>
-                        {y}
-                      </option>
-                    ))}
-                  </select>
-                  <select
-                    className={styles.selectField}
-                    style={{ flex: 1 }}
-                    value={formData.report_month}
-                    onChange={(e) => {
-                      const report_month = e.target.value;
-                      setFormData({
-                        ...formData,
-                        report_month,
-                        report_date:
-                          formData.report_year &&
-                          report_month &&
-                          formData.report_day
-                            ? `${formData.report_year} ${report_month} ${formData.report_day}`
-                            : "",
-                      });
-                    }}
-                  >
-                    <option value="">월</option>
-                    {DESIRED_MONTH_OPTIONS.map((m) => (
-                      <option key={m} value={m}>
-                        {m}
-                      </option>
-                    ))}
-                  </select>
-                  <select
-                    className={styles.selectField}
-                    style={{ flex: 1 }}
-                    value={formData.report_day}
-                    onChange={(e) => {
-                      const report_day = e.target.value;
-                      setFormData({
-                        ...formData,
-                        report_day,
-                        report_date:
-                          formData.report_year &&
-                          formData.report_month &&
-                          report_day
-                            ? `${formData.report_year} ${formData.report_month} ${report_day}`
-                            : "",
-                      });
-                    }}
-                  >
-                    <option value="">일</option>
-                    {REPORT_DAY_OPTIONS.map((d) => (
-                      <option key={d} value={d}>
-                        {d}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </motion.div>
-
               {/* 실습 진행시간 */}
               {showPracticeType && (
                 <motion.div
@@ -670,12 +595,12 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
                     ))}
                   </select>
 
-                  {/* 신청학기·성적보고일·실습 진행시간 안내 */}
+                  {/* 실습 진행시간 안내 */}
                   <p
                     className={styles.addressNote}
                     style={{ color: "#6b7280" }}
                   >
-                    ※ 신청학기, 성적보고일, 실습 진행시간은 담당자 꼭 확인 후 기입
+                    ※ 실습 진행시간은 담당자 꼭 확인 후 기입
                     부탁드립니다
                     <br />
                     담당자 통해 확인치 않고 기입에 따른 문제는 저희가 책임지지
@@ -899,7 +824,7 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
                   <p className={styles.modalPrivacyItem}>
                     <strong>2. 수집 및 이용하는 개인정보 항목</strong>
                     필수 - 이름, 성별, 연락처, 생년월일, 거주지(상세주소 포함),
-                    현장실습 희망날짜, 신청 학기, 실습 진행시간, 실습 진행일,
+                    현장실습 희망날짜, 실습 진행시간, 실습 진행일,
                     자차 사용 여부, 담당자 성함
                   </p>
                   <p className={styles.modalPrivacyItem}>

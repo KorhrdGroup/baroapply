@@ -659,6 +659,36 @@
   margin-bottom: 0;
 }
 
+/* 거주지 기반 실습 현황 분석 */
+.regionAnalysis {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f0f5ff;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4c85ff;
+}
+
+.regionSpinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #d3e1ff;
+  border-top-color: #4c85ff;
+  border-radius: 50%;
+  animation: regionSpin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes regionSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* 체크박스 그룹 (고용형태) */
 .checkboxGroup {
   display: flex;

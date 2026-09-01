@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-08-05T08:26:54.289Z",
+  "lastUpdated": "2026-09-01T09:53:50.200Z",
   "activeFeatures": [
     "korhrdsocialpri",
     "practice",
@@ -8,7 +8,8 @@
     "privacy",
     "prikorhrd",
     "practice-applicants",
-    "result"
+    "result",
+    "practicefree"
   ],
   "primaryFeature": "korhrdsocialpri",
   "features": {
@@ -102,6 +103,19 @@
         "lastUpdated": "2026-07-01T03:23:08.920Z"
       },
       "lastFile": "/Users/korhrd/Documents/GitHub/prikorhrd/app/api/payapp/result/route.ts"
+    },
+    "practicefree": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-09-01T09:46:24.248Z",
+        "lastUpdated": "2026-09-01T09:53:50.200Z"
+      },
+      "lastFile": "/Users/korhrd/Documents/GitHub/practicefree/app/page.tsx"
     }
   },
   "pipeline": {
@@ -112,7 +126,7 @@
   "session": {
     "startedAt": "2026-02-23T03:13:08.412Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-08-05T08:26:54.289Z"
+    "lastActivity": "2026-09-01T09:53:50.200Z"
   },
   "history": [
     {
@@ -370,6 +384,132 @@
     {
       "timestamp": "2026-08-05T08:26:54.289Z",
       "feature": "practice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:46:24.248Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:46:25.934Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:46:37.999Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:46:40.609Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:46:45.093Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:46:46.463Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:46:47.728Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:49:30.233Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:49:31.235Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:49:35.046Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:49:38.960Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:49:45.264Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:51:35.214Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:51:38.546Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:51:50.655Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:52:32.678Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:53:02.596Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:53:41.044Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:53:46.367Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:53:48.479Z",
+      "feature": "practicefree",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-01T09:53:50.200Z",
+      "feature": "practicefree",
       "phase": "do",
       "action": "updated"
     }
