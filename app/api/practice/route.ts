@@ -67,7 +67,6 @@ export async function POST(request: NextRequest) {
       practice_type,
       desired_weekday,
       own_car,
-      manager,
       privacy_agreed,
       terms_agreed,
       click_source,
@@ -86,8 +85,7 @@ export async function POST(request: NextRequest) {
       !report_date ||
       !practice_type ||
       !desired_weekday ||
-      !own_car ||
-      !manager
+      !own_car
     ) {
       return NextResponse.json(
         { error: "All required fields must be filled" },
@@ -143,7 +141,7 @@ export async function POST(request: NextRequest) {
           desired_weekday,
           own_car,
           category,
-          manager,
+          manager: null,
           privacy_agreed: privacy_agreed || false,
           terms_agreed: terms_agreed || false,
           click_source: click_source || null,
@@ -179,7 +177,7 @@ export async function POST(request: NextRequest) {
         practice_type,
         desired_weekday,
         own_car,
-        manager,
+        manager: null,
         // 전국반 = baroapply 전용 분류 (오피스 '실습 전국반' 페이지에서만 조회)
         category: "전국반",
         status: "추후진행예정",

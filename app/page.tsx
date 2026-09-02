@@ -117,7 +117,6 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
     practice_type: "",
     desired_weekday: "",
     own_car: "",
-    manager: "",
   });
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false);
@@ -204,7 +203,6 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
     formData.practice_type.length > 0,
     formData.desired_weekday.trim().length > 0,
     formData.own_car.length > 0,
-    formData.manager.trim().length > 0,
     privacyAgreed,
     termsAgreed,
   ];
@@ -232,7 +230,6 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
         practice_type: formData.practice_type,
         desired_weekday: formData.desired_weekday,
         own_car: formData.own_car,
-        manager: formData.manager,
         privacy_agreed: privacyAgreed,
         terms_agreed: termsAgreed,
         click_source: clickSource,
@@ -676,26 +673,6 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
                 </div>
               </motion.div>
 
-              {/* 담당자 성함 */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={styles.inputGroup}
-              >
-                <label className={styles.inputLabel}>
-                  담당자 성함<span className={styles.required}>*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="담당자 성함을 입력해주세요"
-                  className={styles.inputField}
-                  value={formData.manager}
-                  onChange={(e) =>
-                    setFormData({ ...formData, manager: e.target.value })
-                  }
-                />
-              </motion.div>
-
               {/* 동의 + 신청 버튼 */}
               {showPayment && (
                 <motion.div
@@ -825,7 +802,7 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
                     <strong>2. 수집 및 이용하는 개인정보 항목</strong>
                     필수 - 이름, 성별, 연락처, 생년월일, 거주지(상세주소 포함),
                     현장실습 희망날짜, 실습 진행시간, 실습 진행일,
-                    자차 사용 여부, 담당자 성함
+                    자차 사용 여부
                   </p>
                   <p className={styles.modalPrivacyItem}>
                     <strong>3. 보유 및 이용 기간</strong>
