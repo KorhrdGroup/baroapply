@@ -82,6 +82,8 @@ export async function POST(request: NextRequest) {
       "보육교사 실습 240시간",
       "평생교육사 실습 160시간",
       "한국어교원 실습",
+      // /apply 의 「잘 모르겠어요」 — 시간은 담당자가 확인해 오피스에서 고친다 (2026-11-10)
+      "사회복지사 실습 (시간 미확인)",
     ];
     if (!validPracticeTypes.includes(practice_type)) {
       return NextResponse.json(

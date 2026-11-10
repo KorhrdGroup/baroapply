@@ -93,6 +93,9 @@ const PRACTICE_TYPES = [
   "사회복지사 실습 160시간",
   "사회복지사 실습 120시간",
 ];
+// 유입경로를 고르는 링크(/apply)에서만 보이는 「잘 모르겠어요」 — 담당자가 없어 시간을 확인받지 못한 신청자용 (2026-11-10)
+// 저장값에 「사회복지사」가 들어 있어야 서버 · 오피스가 사회복지사 과정으로 묶는다
+const PRACTICE_TYPE_UNSURE = "사회복지사 실습 (시간 미확인)";
 
 // 현장실습 희망날짜: 년/월 선택 (DB 포맷 "25년 06월"에 맞춤)
 const DESIRED_YEAR_OPTIONS = ["25년", "26년", "27년", "28년"];
@@ -624,6 +627,9 @@ function PracticeFormContent({
                         {type}
                       </option>
                     ))}
+                    {sourceMode && (
+                      <option value={PRACTICE_TYPE_UNSURE}>잘 모르겠어요</option>
+                    )}
                   </select>
 
                   {/* 실습 진행시간 안내 */}
@@ -631,11 +637,22 @@ function PracticeFormContent({
                     className={styles.addressNote}
                     style={{ color: "#6b7280" }}
                   >
-                    ※ 실습 진행시간은 담당자 꼭 확인 후 기입
-                    부탁드립니다
-                    <br />
-                    담당자 통해 확인치 않고 기입에 따른 문제는 저희가 책임지지
-                    않습니다
+                    {sourceMode ? (
+                      <>
+                        ※ 실습 진행시간을 잘 모르시면 「잘 모르겠어요」를
+                        선택해 주세요
+                        <br />
+                        담당자가 확인 후 안내드립니다
+                      </>
+                    ) : (
+                      <>
+                        ※ 실습 진행시간은 담당자 꼭 확인 후 기입
+                        부탁드립니다
+                        <br />
+                        담당자 통해 확인치 않고 기입에 따른 문제는 저희가
+                        책임지지 않습니다
+                      </>
+                    )}
                   </p>
                 </motion.div>
               )}
