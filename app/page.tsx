@@ -55,12 +55,26 @@ const formatClickSource = (
   return `${homepageName}_${shortSource}`;
 };
 
+/**
+ * 유입경로를 고르는 신청 링크(/apply → /?form=source) — 화면은 같고 「담당자 성함」 자리만 「알게 된 경로」 선택으로 바뀐다
+ * (2026-11-10 요청: 「다 동일한데 담당자 성함 쪽 네이버 · 당근 · 인스타/페북 · 구글 · 지인소개 선택칸, 새 링크」).
+ * 고른 값은 유입경로(click_source 「실습섭외신청_당근」)로 저장돼 오피스 실습 전국반의 「유입경로」 칸에 보이고,
+ * 담당자는 비워 둔다(오피스에서 지정) — 같은 날 사용자 「유입경로 하나 만들어주고 담당자는 빈칸으로」.
+ */
+const SOURCE_OPTIONS = ["네이버", "당근", "인스타/페북", "구글", "지인소개"];
+
 function ClickSourceHandler({
   onSourceChange,
+  onModeChange,
 }: {
   onSourceChange: (source: string) => void;
+  onModeChange: (sourceMode: boolean) => void;
 }) {
   const searchParams = useSearchParams();
+  const sourceMode = searchParams.get("form") === "source";
+  useEffect(() => {
+    onModeChange(sourceMode);
+  }, [sourceMode, onModeChange]);
 
   const utmSource = searchParams.get("utm_source");
   const materialId = searchParams.get("material_id");
@@ -96,7 +110,14 @@ const getRegionApplicants = (region: string) => {
   return 35 + Math.floor(Math.random() * 5);
 };
 
-function PracticeFormContent({ clickSource }: { clickSource: string }) {
+function PracticeFormContent({
+  clickSource,
+  sourceMode,
+}: {
+  clickSource: string;
+  /** 유입경로를 고르는 링크로 들어왔나 — 담당자 성함 대신 「알게 된 경로」를 고른다 */
+  sourceMode: boolean;
+}) {
   const [step, setStep] = useState(2);
   const [formData, setFormData] = useState({
     name: "",
@@ -118,6 +139,8 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
     desired_weekday: "",
     own_car: "",
     manager: "",
+    // 알게 된 경로 — 유입경로를 고르는 링크(/apply)에서만 쓴다
+    source: "",
   });
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false);
@@ -204,7 +227,8 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
     formData.practice_type.length > 0,
     formData.desired_weekday.trim().length > 0,
     formData.own_car.length > 0,
-    formData.manager.trim().length > 0,
+    // 유입경로를 고르는 링크는 담당자 성함 대신 알게 된 경로가 필수
+    sourceMode ? formData.source.length > 0 : formData.manager.trim().length > 0,
     privacyAgreed,
     termsAgreed,
   ];
@@ -232,10 +256,17 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
         practice_type: formData.practice_type,
         desired_weekday: formData.desired_weekday,
         own_car: formData.own_car,
-        manager: formData.manager,
+        // 유입경로를 고르는 링크는 담당자를 비워 보낸다(오피스에서 지정)
+        manager: sourceMode ? "" : formData.manager,
+        source_mode: sourceMode,
         privacy_agreed: privacyAgreed,
         terms_agreed: termsAgreed,
-        click_source: clickSource,
+        // 유입경로 — 유입경로를 고르는 링크는 신청자가 고른 경로(광고 표시 utm 이 붙어 있어도 고른 값이 남는다),
+        // 그 밖의 링크는 광고 표시(utm)로 만든 값
+        click_source:
+          sourceMode && formData.source
+            ? `실습섭외신청_${formData.source}`
+            : clickSource,
       };
 
       const response = await fetch("/api/practice", {
@@ -682,18 +713,42 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
                 animate={{ opacity: 1, y: 0 }}
                 className={styles.inputGroup}
               >
-                <label className={styles.inputLabel}>
-                  담당자 성함<span className={styles.required}>*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="담당자 성함을 입력해주세요"
-                  className={styles.inputField}
-                  value={formData.manager}
-                  onChange={(e) =>
-                    setFormData({ ...formData, manager: e.target.value })
-                  }
-                />
+                {sourceMode ? (
+                  <>
+                    <label className={styles.inputLabel}>
+                      알게 된 경로<span className={styles.required}>*</span>
+                    </label>
+                    <select
+                      className={styles.selectField}
+                      value={formData.source}
+                      onChange={(e) =>
+                        setFormData({ ...formData, source: e.target.value })
+                      }
+                    >
+                      <option value="">선택해주세요</option>
+                      {SOURCE_OPTIONS.map((o) => (
+                        <option key={o} value={o}>
+                          {o}
+                        </option>
+                      ))}
+                    </select>
+                  </>
+                ) : (
+                  <>
+                    <label className={styles.inputLabel}>
+                      담당자 성함<span className={styles.required}>*</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="담당자 성함을 입력해주세요"
+                      className={styles.inputField}
+                      value={formData.manager}
+                      onChange={(e) =>
+                        setFormData({ ...formData, manager: e.target.value })
+                      }
+                    />
+                  </>
+                )}
               </motion.div>
 
               {/* 동의 + 신청 버튼 */}
@@ -825,7 +880,7 @@ function PracticeFormContent({ clickSource }: { clickSource: string }) {
                     <strong>2. 수집 및 이용하는 개인정보 항목</strong>
                     필수 - 이름, 성별, 연락처, 생년월일, 거주지(상세주소 포함),
                     현장실습 희망날짜, 실습 진행시간, 실습 진행일,
-                    자차 사용 여부, 담당자 성함
+                    자차 사용 여부, {sourceMode ? "알게 된 경로" : "담당자 성함"}
                   </p>
                   <p className={styles.modalPrivacyItem}>
                     <strong>3. 보유 및 이용 기간</strong>
@@ -923,11 +978,15 @@ export default function Page() {
   const handleSourceChange = useCallback((source: string) => {
     setClickSource(source);
   }, []);
+  const [sourceMode, setSourceMode] = useState(false);
 
   return (
     <Suspense fallback={<div />}>
-      <ClickSourceHandler onSourceChange={handleSourceChange} />
-      <PracticeFormContent clickSource={clickSource} />
+      <ClickSourceHandler
+        onSourceChange={handleSourceChange}
+        onModeChange={setSourceMode}
+      />
+      <PracticeFormContent clickSource={clickSource} sourceMode={sourceMode} />
     </Suspense>
   );
 }
