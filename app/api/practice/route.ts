@@ -40,6 +40,9 @@ export async function POST(request: NextRequest) {
       terms_agreed,
       click_source,
     } = body;
+    // [선택] 광고성 정보 수신 동의 — true 일 때만 동의로 남긴다 (업셀링 문자 대상 판단, 2026-11-17)
+    const marketingAgreed = body.marketing_agreed === true;
+    const marketingAgreedAt = marketingAgreed ? new Date().toISOString() : null;
 
     // 필수 필드 검사
     if (
@@ -118,6 +121,8 @@ export async function POST(request: NextRequest) {
           manager: manager || null,
           privacy_agreed: privacy_agreed || false,
           terms_agreed: terms_agreed || false,
+          marketing_agreed: marketingAgreed,
+          marketing_agreed_at: marketingAgreedAt,
           click_source: click_source || null,
           status: "pending",
         },
@@ -154,6 +159,8 @@ export async function POST(request: NextRequest) {
         manager: manager || null,
         // 유입경로 — 오피스 실습 전국반 「유입경로」 칸 (2026-11-10)
         click_source: click_source || null,
+        marketing_agreed: marketingAgreed,
+        marketing_agreed_at: marketingAgreedAt,
         // 전국반 = baroapply 전용 분류 (오피스 '실습 전국반' 페이지에서만 조회)
         category: "전국반",
         status: "추후진행예정",

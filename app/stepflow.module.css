@@ -733,6 +733,12 @@
   font-size: 13px;
 }
 
+/* [선택] 항목 표시 — 필수(빨강)와 구분되는 회색 */
+.optionalBadge {
+  color: #8b95a1;
+  font-size: 13px;
+}
+
 /* 로딩 스피너 */
 .loadingContainer {
   display: flex;
