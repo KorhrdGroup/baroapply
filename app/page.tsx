@@ -147,16 +147,9 @@ function PracticeFormContent({
   });
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false);
-  // [선택] 광고성 정보 수신 동의 — 기본은 체크 안 됨, 체크 안 해도 신청 가능 (정보통신망법 제50조, 2026-11-17)
-  const [marketingAgreed, setMarketingAgreed] = useState(false);
-  const [showMarketingModal, setShowMarketingModal] = useState(false);
-  // 「모두 동의」 — 필수(개인정보 · 이용약관) + 선택(광고성 정보 수신)을 한 번에 켜고 끔. 신청 조건은 필수만 봄
-  const allConsentsAgreed = privacyAgreed && termsAgreed && marketingAgreed;
-  const handleAllConsents = (checked: boolean) => {
-    setPrivacyAgreed(checked);
-    setTermsAgreed(checked);
-    setMarketingAgreed(checked);
-  };
+  // 2026-11-25 동의를 개인정보처리방침 하나로 통합(그 안에 「개인정보 수집 · 이용 동의」 — 홍보 · 광고성 정보 제공 목적 포함) —
+  // 따로 받던 광고성 정보 수신 동의는 이 동의에 들어가므로, 신청하면 광고 수신 동의(marketingAgreed)도 함께 기록한다
+  const marketingAgreed = privacyAgreed;
   const [loading, setLoading] = useState(false);
   const [contactError, setContactError] = useState("");
   const [regionStatus, setRegionStatus] = useState<"idle" | "loading" | "done">(
@@ -789,21 +782,6 @@ function PracticeFormContent({
                     <label className={styles.checkboxLabel}>
                       <input
                         type="checkbox"
-                        checked={allConsentsAgreed}
-                        onChange={(e) => handleAllConsents(e.target.checked)}
-                        className={styles.checkbox}
-                      />
-                      <span>
-                        <strong>모두 동의합니다</strong>{" "}
-                        <span className={styles.optionalBadge}>
-                          (선택 항목 포함)
-                        </span>
-                      </span>
-                    </label>
-
-                    <label className={styles.checkboxLabel}>
-                      <input
-                        type="checkbox"
                         checked={privacyAgreed}
                         onChange={(e) => setPrivacyAgreed(e.target.checked)}
                         className={styles.checkbox}
@@ -838,26 +816,6 @@ function PracticeFormContent({
                         </button>{" "}
                         동의{" "}
                         <span className={styles.requiredBadge}>(필수)</span>
-                      </span>
-                    </label>
-
-                    <label className={styles.checkboxLabel}>
-                      <input
-                        type="checkbox"
-                        checked={marketingAgreed}
-                        onChange={(e) => setMarketingAgreed(e.target.checked)}
-                        className={styles.checkbox}
-                      />
-                      <span>
-                        <button
-                          type="button"
-                          onClick={() => setShowMarketingModal(true)}
-                          className={styles.agreementLink}
-                        >
-                          광고성 정보 수신
-                        </button>{" "}
-                        동의{" "}
-                        <span className={styles.optionalBadge}>(선택)</span>
                       </span>
                     </label>
                   </div>
@@ -944,26 +902,35 @@ function PracticeFormContent({
                     필수 - 이름, 성별, 연락처, 생년월일, 거주지(상세주소 포함),
                     현장실습 희망날짜, 실습 진행시간, 실습 진행일,
                     자차 사용 여부, {sourceMode ? "알게 된 경로" : "담당자 성함"}
-                    <br />
-                    선택 - 광고성 정보 수신 동의 여부
                   </p>
                   <p className={styles.modalPrivacyItem}>
-                    <strong>3. 보유 및 이용 기간</strong>
-                    법령이 정하는 경우를 제외하고는 수집일로부터 5년 또는 동의
-                    철회 시까지 보유 및 이용합니다.
-                  </p>
-                  <p className={styles.modalPrivacyItem}>
-                    <strong>4. 동의 거부 권리</strong>
+                    <strong>3. 동의 거부 권리</strong>
                     신청자는 동의를 거부할 권리가 있습니다. 단, 필수 항목에 대한
-                    동의를 거부하는 경우 서비스 이용이 제한됩니다. 선택 항목에
-                    대한 동의를 거부하더라도 서비스 이용에는 제한이 없습니다.
+                    동의를 거부하는 경우 서비스 이용이 제한됩니다.
                   </p>
                   <p className={styles.modalPrivacyItem}>
-                    <strong>5. 개인정보의 제3자 제공</strong>
+                    <strong>4. 개인정보의 제3자 제공</strong>
                     회사는 원칙적으로 이용자의 개인정보를 제3자에게 제공하지
                     않습니다. 다만, 실습처 배정을 위해 해당 실습기관에 필요한
                     최소한의 정보(이름, 연락처, 실습유형)를 제공할 수 있으며, 이
                     경우 사전에 안내드립니다.
+                  </p>
+                  <p className={styles.modalPrivacyItem}>
+                    <strong>5. 개인정보 수집 · 이용 동의</strong>
+                    회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다.
+                  </p>
+                  <p className={styles.modalPrivacyItem}>
+                    학점은행제 교육과정 이용에 필요한 사항 제공 및 안내
+                    <br />
+                    신규 서비스 및 연수과정 홍보, 이벤트 및 광고성 정보 제공 및
+                    참여기회 제공
+                  </p>
+                  <p className={styles.modalPrivacyItem}>
+                    수집하는 개인 정보 항목 : 이름, 연락처, 관심과정
+                    <br />
+                    보유 및 이용기간 : 신청일 기준 3년 이내
+                    <br />
+                    보존근거 : 소비자보호에 관한 법률 시행령 제6조 제3항
                   </p>
                 </div>
               </div>
@@ -1026,76 +993,6 @@ function PracticeFormContent({
                     <strong>제4조 (서비스 변경 및 중단)</strong>
                     회사는 운영상, 기술상의 필요에 따라 서비스를 변경하거나
                     중단할 수 있으며, 이 경우 사전에 공지합니다.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* [선택] 광고성 정보 수신 동의 모달 — 문구는 다른 랜딩(바로랜딩 등)과 같게 */}
-        {showMarketingModal && (
-          <div
-            className={styles.modalOverlay}
-            onClick={() => setShowMarketingModal(false)}
-          >
-            <div
-              className={styles.modalPrivacy}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className={styles.modalPrivacyHeader}>
-                <h3 className={styles.modalPrivacyTitle}>
-                  [선택] 광고성 정보 수신 동의
-                </h3>
-                <button
-                  className={styles.modalCloseButton}
-                  onClick={() => setShowMarketingModal(false)}
-                  aria-label="닫기"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M18 6L6 18M6 6L18 18"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <div className={styles.modalPrivacyContent}>
-                <div className={styles.modalPrivacyScroll}>
-                  <p className={styles.modalPrivacyItem}>
-                    (주)한평생그룹은 이벤트 안내를 위해 휴대폰 번호로 광고성
-                    정보를 발송해요. 발송 채널은 SMS, 알림톡이며, 보유 기간은
-                    동의 철회 시까지예요.
-                  </p>
-                  <p className={styles.modalPrivacyItem}>
-                    <strong>1. 수집 및 이용 목적</strong>
-                    이벤트 안내(광고성 정보 발송)
-                  </p>
-                  <p className={styles.modalPrivacyItem}>
-                    <strong>2. 수집 항목</strong>
-                    휴대폰 번호
-                  </p>
-                  <p className={styles.modalPrivacyItem}>
-                    <strong>3. 발송 채널</strong>
-                    SMS, 알림톡
-                  </p>
-                  <p className={styles.modalPrivacyItem}>
-                    <strong>4. 보유 기간</strong>
-                    동의 철회 시까지
-                  </p>
-                  <p className={styles.modalPrivacyItem}>
-                    <strong>5. 거부 권리 및 거부 시 불이익</strong>
-                    동의를 거부할 수 있어요. 거부해도 실습 신청에는 불이익이
-                    없고, 동의한 뒤에도 언제든 무료수신거부로 철회할 수 있어요.
                   </p>
                 </div>
               </div>
